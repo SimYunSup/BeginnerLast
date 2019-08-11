@@ -36,6 +36,7 @@
           >
             <b-row
               class="lower__content"
+              no-gutters
             >
               <slot></slot>
             </b-row>
@@ -70,6 +71,7 @@
   }
   .lower__content {
     font-size: 2vw;
+    text-align: center;
   }
   @media (min-width: 768px) {
     .lower__name {

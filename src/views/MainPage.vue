@@ -96,6 +96,7 @@ export default {
     margin-top: 15%;
     font-size: 1.7rem;
     font-weight: bold;
+    text-align: center;
   }
   .main__explanation {
     text-align: center;
