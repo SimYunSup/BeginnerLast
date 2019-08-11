@@ -1,6 +1,8 @@
 <template>
   <div class="main">
-    <b-row>
+    <b-row
+      no-gutters
+    >
       <b-col
         class="main__title"
         cols="12"

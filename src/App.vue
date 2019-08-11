@@ -18,7 +18,7 @@
         cols="3"
       >
         <b-link
-          href="emailto:pedogunu@gmail.com"
+          href="mailto:pedogunu@gmail.com"
           target="_blank"
         >
           dev's email
@@ -29,8 +29,8 @@
 </template>
 
 <script>
-  import navbar from '@/components/Sharing/Navbar.vue'
-  import lower from '@/components/Sharing/Lower.vue'
+  import navbar from '@/components/shraing/Navbar.vue'
+  import lower from '@/components/shraing/Lower.vue'
 
   export default {
     components: {

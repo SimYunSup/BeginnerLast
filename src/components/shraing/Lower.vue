@@ -19,6 +19,7 @@
       >
         <b-row
           algin-v="center"
+          no-gutters
         >
           <b-col
             class="lower__name"
