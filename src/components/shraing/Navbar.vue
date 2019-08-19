@@ -40,9 +40,25 @@
 
         <b-navbar-nav class="ml-auto">
           <b-nav-item-dropdown right>
-            <template #button-content>User</template>
-            <b-dropdown-item>Login</b-dropdown-item>
-            <b-dropdown-item>Register</b-dropdown-item>
+            <template #button-content>{{ userName }}</template>
+            <template v-if="loginState">
+              <b-dropdown-item
+                to="/"
+                @click="removeAccount"
+              >
+                delete Account
+              </b-dropdown-item>
+              <b-dropdown-item
+                to="/"
+                @click="logout"
+              >
+                Logout
+              </b-dropdown-item>
+            </template>
+            <template v-else>
+              <b-dropdown-item to="/login">Login</b-dropdown-item>
+              <b-dropdown-item to="/register">Register</b-dropdown-item>
+            </template>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -51,22 +67,33 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: "Navbar",
     methods: {
       getAddress(name){
         return '/' + name
-      }
+      },
+      ...mapActions(
+        {
+          removeAccount: 'account/removeAccount',
+          logout: 'account/signOut'
+        }
+      )
     },
     computed: {
       ...mapGetters(
         {
           enabledNav: 'sharing/getEnabledNav',
-          navName: 'sharing/getNavName'
+          navName: 'sharing/getNavName',
+          userName: 'account/getUserName',
+          loginState: 'account/getLoginState'
         }
       )
+    },
+    mounted() {
+      this.$store.commit('account/loadLoginData')
     }
   }
 </script>

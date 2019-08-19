@@ -1,4 +1,4 @@
-//This module is for Sharing data like below
+//This module is for shraing data like below
 // navbar-nav enable/disable
 // already visited or not(finish simulator or not)
 
