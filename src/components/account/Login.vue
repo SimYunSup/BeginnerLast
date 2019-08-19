@@ -138,9 +138,12 @@
         }
       ),
       signIn() {
-        let result = this.loginCheck(this.LoginData)
-
-        result ? this.$router.push('/') : {}
+        this.loginCheck(this.LoginData)
+          .then(
+            result => {
+              result ? this.$router.push('/') : {}
+            }
+          )
       }
     },
     computed: {
