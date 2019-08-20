@@ -5,7 +5,7 @@
     variant="dark"
     fixed="top"
   >
-    <b-container>
+    <b-container fluid>
       <b-navbar-brand
         to="/"
       >
