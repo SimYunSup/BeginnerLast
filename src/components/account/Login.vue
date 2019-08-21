@@ -102,6 +102,25 @@
         <google-button></google-button>
       </b-col>
     </b-form-row>
+
+    <b-form-row
+      class="login__row"
+    >
+      <b-col
+        cols="8"
+        offset="2"
+        md="6"
+        offset-md="3"
+      >
+        <b-button
+          class="login__button"
+          variant="info"
+          to="/register"
+        >
+          Sign up
+        </b-button>
+      </b-col>
+    </b-form-row>
   </b-col>
 </template>
 
