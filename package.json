@@ -12,6 +12,7 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.27",
     "core-js": "^2.6.5",
+    "randomcolor": "^0.5.4",
     "vue": "^2.6.10",
     "vue-cookies": "^1.5.13",
     "vue-router": "^3.0.3",

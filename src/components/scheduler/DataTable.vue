@@ -19,7 +19,7 @@
             class="datatable__select border-0"
             size="sm"
             v-model="sleepTime.startTime"
-            :options="sleepTimeOption.endTime"
+            :options="sleepTimeOption.startTime"
           />
           ~
           <b-form-select
@@ -55,7 +55,7 @@
       </thead>
 
       <tbody
-        v-for="(timeInfo, index1) in times"
+        v-for="(timeInfo, index1) in timeTable"
         :key="index1"
       >
         <tr
@@ -68,8 +68,9 @@
           >
             <b-input
               :class="classArray.input"
-              v-model="times[index1].name"
+              v-model="timeTable[index1].name"
               placeholder="Name"
+              @input="changeElement('name', index1)"
             />
           </td>
 
@@ -79,7 +80,8 @@
           >
             <b-form-checkbox
               :class="classArray.checkbox"
-              v-model="times[index1].exam"
+              v-model="timeTable[index1].exam"
+              @change="changeElement('exam', index1)"
             />
           </td>
 
@@ -90,15 +92,17 @@
               <b-form-select
                 :class="classArray.select"
                 size="sm"
-                v-model="times[index1].time[index2].day"
+                v-model="timeTable[index1].time[index2].day"
                 :options="dayOption"
-                :disabled="times[index1].time[index2].type !== 'fixed'"
+                :disabled="timeTable[index1].time[index2].type !== 'fixed'"
+                @change="changeElement('day', index1, index2)"
               />
 
               <b-button
                 size="sm"
                 variant="success"
                 v-show="isLastFixedTime([index1, index2])"
+                @click="changeElement('addRow', index1, index2)"
               >
                 +
               </b-button>
@@ -108,27 +112,29 @@
           <td>
             <div
               :class="classArray.time"
-              v-if="times[index1].time[index2].type === 'fixed'"
+              v-if="timeTable[index1].time[index2].type === 'fixed'"
             >
               <b-form-select
                 class="datatable__select border-0"
                 size="sm"
-                v-model="times[index1].time[index2].startTime"
+                v-model="timeTable[index1].time[index2].startTime"
                 :options="fixedTimeOption('start')"
+                @change="changeElement('startTime', index1, index2)"
               />
               ~
               <b-form-select
                 class="datatable__select border-0"
                 size="sm"
-                v-model="times[index1].time[index2].endTime"
+                v-model="timeTable[index1].time[index2].endTime"
                 :options="fixedTimeOption('end')"
+                @change="changeElement('endTime', index1, index2)"
               />
             </div>
             <div
               :class="classArray.time"
               v-else
             >
-              {{ times[index1].time[index2].time }}
+              {{ timeTable[index1].time[index2].time }}
             </div>
           </td>
 
@@ -139,6 +145,7 @@
               <b-button
                 size="sm"
                 variant="danger"
+                @click="changeElement('removeRow', index1, index2)"
               >
                 -
               </b-button>
@@ -161,7 +168,6 @@
           startTime: this.getSleepTime().startTime,
           endTime: this.getSleepTime().endTime
         },
-        times: this.timeData,
         windowWidth: window.innerWidth,
         classArray: {
           input: ['border-0'],
@@ -184,19 +190,18 @@
         }
       }
     },
-    props: {
-      timeData: {
-        type: Array,
-        required: true
-      }
-    },
+    //props를 통해 배열/객체를 가져오는 경우 참조를 전달하므로
+    //하위 컴포넌트에서 바꾸는 경우 상위 컴포넌트에 영향을 준다!
     methods: {
       ...mapGetters({
         getSleepTime: 'scheduler/getSleepTime',
-        isStartTimeBigger: 'scheduler/isStartTimeBigger'
+        isStartTimeBigger: 'scheduler/isStartTimeBigger',
+        times: 'scheduler/getTimeTable',
+        orderSleepTime: 'scheduler/getOrderOfSleepTime'
       }),
       ...mapMutations({
-        setSleepTime: 'scheduler/setSleepTime'
+        setSleepTime: 'scheduler/setSleepTime',
+        changeData: 'scheduler/changePartOfData'
       }),
       fixedTimeOption(time) {
         //time is 'start' or 'end'
@@ -207,14 +212,11 @@
           hour12: false
         }
         let timeArray= []
-        let sleepTime = this.getSleepTime()
         let startTime, endTime
 
-        if(this.isStratTimeBigger) {
-          startTime = Number(sleepTime.endTime.slice(0, 2)) * 2
-            + (sleepTime.endTime[3] === '0' ? 0 : 1)
-          endTime = Number(sleepTime.startTime.slice(0, 2)) * 2
-            + (sleepTime.startTime[3] === '0' ? 0 : 1)
+        if(this.isStartTimeBigger()) {
+          startTime = this.orderSleepTime().endTime
+          endTime = this.orderSleepTime().startTime
 
           for(let i = startTime + (time === 'start' ? 0 : 1);
               i < endTime + (time === 'start' ? 0 : 1);
@@ -227,10 +229,8 @@
             timeArray.push(timeString)
           }
         } else {
-          startTime = Number(sleepTime.startTime.slice(0, 2)) * 2
-            + (sleepTime.startTime[3] === '0' ? 0 : 1)
-          endTime = Number(sleepTime.endTime.slice(0, 2)) * 2
-            + (sleepTime.endTime[3] === '0' ? 0 : 1)
+          startTime = this.orderSleepTime().startTime
+          endTime = this.orderSleepTime().endTime
 
           for(let i = (time === 'start' ? 0 : 1);
               i < 48 + (time === 'start' ? 0 : 1);
@@ -242,19 +242,77 @@
 
             timeArray.push(timeString)
           }
+
+          timeArray.splice(startTime, endTime - startTime)
         }
         return timeArray
       },
       isLastFixedTime(indexArray) {
-        let index = this.times[indexArray[0]].time.findIndex(
+        let index = this.times()[indexArray[0]].time.findIndex(
           (value, index, array) => {
+            if(index + 1 === array.length) {
+              return false
+            }
             return array[index + 1].type === 'flex'
           }
         )
 
         return index === -1 ?
-          indexArray[2] === this.times[indexArray[0]].time.length :
+          indexArray[2] === this.times()[indexArray[0]].time.length :
           index === indexArray[1]
+      },
+      changeElement(element, index1, index2) {
+        const orderOfTime = (string) => {
+          return Number(string.slice(0, 2)) * 2
+            + (string[3] === '0' ? 0 : 1)
+        }
+
+        if(/Time/.test(element)) {
+          let startTime = orderOfTime(this.times()[index1].time[index2].startTime)
+          let endTime = orderOfTime(this.times()[index1].time[index2].endTime)
+
+          if(element === 'startTime') {
+            let sleepEndTime = orderOfTime(this.getSleepTime().endTime)
+            if((startTime < sleepEndTime && endTime > sleepEndTime)
+              ||  startTime >= endTime) {
+              alert('Time Scope Error. Enter Right Scope.')
+              console.log(startTime < sleepEndTime)
+              console.log(endTime > sleepEndTime)
+              console.log(startTime <= endTime)
+              return false
+            }
+          } else if(element === 'endTime') {
+            let sleepStartTime = orderOfTime(this.getSleepTime().startTime)
+
+            if((startTime < sleepStartTime && endTime > sleepStartTime)
+              || startTime >= endTime) {
+              alert('Time Scope Error. Enter Right Scope.')
+              return false
+            }
+          }
+        }
+
+        if(/Row/.test(element)) {
+          let isNeedIndex2 = /day|Time/.test(element)
+          let elementInfo = {
+            name: element,
+            value: isNeedIndex2 ?
+              this.times()[index1][element] :
+              this.times()[index1].time[index2][element],
+            index1,
+            index2
+          }
+
+          this.changeData(elementInfo)
+        } else {
+          let elementInfo = {
+            name: element,
+            index1,
+            index2
+          }
+
+          this.changeData(elementInfo)
+        }
       }
     },
     computed: {
@@ -272,10 +330,13 @@
 
           timeArray.push({value: timeString, text: timeString})
         }
-
+        let startTimeArray = [].concat(timeArray)
+        let endTimeArray = [].concat(timeArray)
+        startTimeArray.splice(this.orderSleepTime().endTime, 1)
+        endTimeArray.splice(this.orderSleepTime().startTime, 1)
         return {
-          startTime: timeArray,
-          endTime: timeArray
+          startTime: startTimeArray,
+          endTime: endTimeArray
         }
       },
       dayOption() {
@@ -292,7 +353,10 @@
               }
             }
           )
-      }
+      },
+      ...mapGetters({
+        timeTable: 'scheduler/getTimeTable'
+      })
     },
     mounted() {
       window.addEventListener('resize', () => {

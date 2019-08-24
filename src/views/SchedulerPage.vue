@@ -6,25 +6,21 @@
       class="schedulerpage__content"
     >
       <scheduler
-        :schedule-data="data"
         class="schedulerpage__scheduler"
       />
       <div
         class="schedulerpage__table"
       >
-        <data-table
-          :time-data="data"
-        />
+        <data-table/>
       </div>
     </div>
-
     <div
       class="schedulerpage__buttonrow"
     >
       <b-button
         class="schedulerpage__button"
         variant="success"
-        @click="addTimeDataRow"
+        @click="addRow"
       >
         +
       </b-button>
@@ -36,9 +32,17 @@
       </b-button>
       <b-button
         class="schedulerpage__button"
-        variant="secondary"
+        variant="primary"
+        @click="saveData"
       >
-        Cancel
+        Save
+      </b-button>
+      <b-button
+        class="schedulerpage__button"
+        variant="danger"
+        @click="resetData"
+      >
+        Reset
       </b-button>
     </div>
   </div>
@@ -47,6 +51,7 @@
 <script>
   import scheduler from '@/components/scheduler/Scheduler'
   import dataTable from '@/components/scheduler/DataTable'
+  import { mapMutations, mapActions } from 'vuex'
 
   export default {
     name: "SchdulerPage",
@@ -54,36 +59,14 @@
       scheduler,
       dataTable
     },
-    data() {
-      return {
-        data: [
-          {
-            name: '선형대수학',
-            time: [
-              {type: 'fixed', startTime: '09:00', endTime: '11:00', day: 2},
-              {type: 'flex', time: '02:00', day: 4}
-            ],
-            exam: true
-          },
-          {
-            name: 'asdf',
-            time: [
-              {type: 'fixed', startTime: '09:00', endTime: '13:00', day: 4},
-              {type: 'flex', time: '02:00', day: 2}
-            ],
-            exam: false
-          }
-        ]
-      }
-    },
     methods: {
-      addTimeDataRow() {
-        this.data.push({
-          name: '',
-          time: [{type: 'fixed', startTime: '', endTime: '', day: null}],
-          exam: false
-        })
-      }
+      ...mapMutations({
+        addRow: 'scheduler/addTimeDataRow'
+      }),
+      ...mapActions({
+        saveData: 'scheduler/addData',
+        resetData: 'scheduler/removeData'
+      })
     }
   }
 </script>

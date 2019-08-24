@@ -131,6 +131,100 @@ const loginCheck = (accountSetting) => {
   })
 }
 
+
+
+//dataSetting is Object. id and data....
+const addAccountData = (dataName, dataSetting) => {
+
+  return new Promise((resolve, reject) => {
+    data
+      .then(
+        value => {
+          value === null ? value = [] : {}
+          let valueIndex = value.map(element => {
+              return element.id
+            }
+          ).findIndex(dataSetting.id)
+
+          valueIndex === -1 ? value.push(dataSetting)
+            : value.splice(valueIndex, 1, dataSetting)
+
+          return value
+        }
+      )
+      .then(
+        value => {
+          asyncLocalStorage.setItem(dataName, value)
+            .then(
+              () => {
+                JSON.parse(localStorage.getItem(dataName)).find(dataSetting) ?
+                  resolve(dataSetting) :
+                  reject()
+              }
+            )
+        }
+      )
+  })
+}
+
+const removeAccountData = (id, dataName) => {
+  let data = asyncLocalStorage.getItem(dataName)
+
+  return new Promise((resolve, reject) => {
+    data.then(
+      value => {
+        if(value === null)
+          reject
+        let valueIndex = value.map(element => {
+            return element.id
+          }
+        ).findIndex(id)
+
+        valueIndex === -1 ? reject
+          : value.splice(valueIndex, 1)
+
+        return value
+      }
+    )
+      .then(
+        value => {
+          asyncLocalStorage.setItem(dataName, value)
+            .then(
+              () => {
+                JSON.parse(localStorage.getItem(dataName))
+                  .map(element => {
+                    return element.id
+                  })
+                  .find(id) ?
+                  reject() :
+                  resolve()
+              }
+            )
+        }
+      )
+  })
+}
+
+const loadAccountData = (id, dataName) => {
+  let data = asyncLocalStorage.getItem(dataName)
+
+  return new Promise( (resolve, reject) => {
+    data.then(
+      value => {
+        if(value === null)
+          reject
+
+        let valueIndex = value.map(element => {
+            return element.id
+          }
+        ).findIndex(id)
+
+        valueIndex === -1 ? reject : resolve(value[valueIndex])
+      }
+    )
+  })
+}
+
 export const register = {
   makeAccount,
   changeAccount,
@@ -140,4 +234,10 @@ export const register = {
 
 export const login = {
   loginCheck
+}
+
+export const data = {
+  addAccountData,
+  removeAccountData,
+  loadAccountData
 }
