@@ -67,10 +67,11 @@ const actions = {
       )
     return idCheckState
   },
-  signIn({ state, commit }, accountSetting) {
-    login.loginCheck(accountSetting)
+  signIn({ commit }, accountSetting) {
+    return login.loginCheck(accountSetting)
       .then(
         (account) => {
+          delete account.password
           window.$cookies.set('account', account, 0)
           commit('signIn', account)
 
@@ -80,11 +81,14 @@ const actions = {
             window.$cookies.set('rememberID', account.id, 60*60*24*365)
           else
             window.$cookies.remove('rememberID')
-        },
-        () => {alert('Login Failed')}
-      )
 
-    return !!state.account
+          return true
+        },
+        () => {
+          alert('Login Failed')
+          return false
+        }
+      )
   },
   signOut({ commit }) {
     commit('signOut')
