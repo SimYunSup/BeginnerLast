@@ -33,8 +33,15 @@ const getters = {
 
 const mutations = {
   changeNavbar(state, item){
+    if(item === 'all') {
+      state.simulator = true
+      state.weather = true
+      state.wayfinding = true
+      state.scheduler = true
+      state.developer = true
+    } else
     //item is state to change
-    state[item] = true
+      state[item] = true
   },
   changeVisitedCondition(state) {
     state.visited = true

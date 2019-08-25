@@ -32,7 +32,7 @@
       >
         <b-button
           class="main__button"
-          @click="changeVisitedCondition()"
+          @click="skipAll"
         >
           네
         </b-button>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-  import { mapState, mapMutations } from 'vuex'
+  import { mapState, mapGetters, mapMutations } from 'vuex'
 // @ is an alias to /src
 
 export default {
@@ -70,12 +70,22 @@ export default {
           '한 번 봤으면서 ㅎ 그냥 예 눌러주세요.'
         ]
     },
+    ...mapGetters({
+      loginState: 'account/getLoginState'
+    }),
     ...mapMutations(
       'sharing',
       [
-        'changeVisitedCondition'
+        'changeVisitedCondition',
+        'changeNavbar'
       ]
-    )
+    ),
+    skipAll() {
+      this.changeNavbar('all')
+      this.changeVisitedCondition()
+
+      this.$router.push('/login')
+    }
   },
   computed: {
     ...mapState(
@@ -84,6 +94,11 @@ export default {
         hasVisited: state => state.visited
       }
     )
+  },
+  created() {
+    this.loginState === true
+      ? this.changeVisitedCondition()
+      : {}
   }
 }
 </script>

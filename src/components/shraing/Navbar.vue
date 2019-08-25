@@ -31,7 +31,7 @@
           <b-nav-item
             v-for="(name, index) in navName"
             :key="name"
-            :to="getAddress(name)"
+            :to="address[index]"
             :disabled="!enabledNav[index]"
           >
             {{ name }}
@@ -71,10 +71,18 @@
 
   export default {
     name: "Navbar",
+    data() {
+      return {
+        address: [
+          '/simulator',
+          '/weather',
+          '/wayfinding',
+          '/scheduler/before',
+          '/developer'
+        ]
+      }
+    },
     methods: {
-      getAddress(name){
-        return '/' + name
-      },
       ...mapActions(
         {
           removeAccount: 'account/removeAccount',
