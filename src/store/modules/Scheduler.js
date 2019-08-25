@@ -80,7 +80,7 @@ const mutations = {
         break;
       case 'addRow':
         state.timeTableData[elementInfo.index1].time.splice(
-          elementInfo.index2,
+          elementInfo.index2 + 1,
           0,
           {type: 'fixed', startTime: '', endTime: '', day: null}
         )
@@ -145,8 +145,8 @@ const actions = {
 
     data.removeAccountData(account.id, 'scheduler')
       .then(
-        () => {alert('Remove completely')},
-        () => {alert('Remove Failed')}
+        () => {alert('Remove Account Data Completely')},
+        () => {alert('Remove Account Data Failed')}
       )
   }
 }

@@ -135,6 +135,7 @@ const loginCheck = (accountSetting) => {
 
 //dataSetting is Object. id and data....
 const addAccountData = (dataName, dataSetting) => {
+  let data = asyncLocalStorage.getItem(dataName)
 
   return new Promise((resolve, reject) => {
     data
@@ -144,7 +145,10 @@ const addAccountData = (dataName, dataSetting) => {
           let valueIndex = value.map(element => {
               return element.id
             }
-          ).findIndex(dataSetting.id)
+          ).findIndex(
+            value => {
+              return value === dataSetting.id
+          })
 
           valueIndex === -1 ? value.push(dataSetting)
             : value.splice(valueIndex, 1, dataSetting)
@@ -154,10 +158,15 @@ const addAccountData = (dataName, dataSetting) => {
       )
       .then(
         value => {
+          console.log(value)
           asyncLocalStorage.setItem(dataName, value)
             .then(
               () => {
-                JSON.parse(localStorage.getItem(dataName)).find(dataSetting) ?
+                JSON.parse(localStorage.getItem(dataName)).find(
+                  value => {
+                    return value.id === dataSetting.id
+                  }
+                ) ?
                   resolve(dataSetting) :
                   reject()
               }
@@ -173,26 +182,37 @@ const removeAccountData = (id, dataName) => {
   return new Promise((resolve, reject) => {
     data.then(
       value => {
-        if(value === null)
-          reject
-        let valueIndex = value.map(element => {
-            return element.id
-          }
-        ).findIndex(id)
+        if(value === null) {
+          reject()
+          return
+        }
+        else {
+          let valueIndex = value.map(element => {
+              return element.id
+            }
+          ).findIndex(id)
 
-        valueIndex === -1 ? reject
-          : value.splice(valueIndex, 1)
+          if(valueIndex === -1) {
+            reject()
+            return
+          }
+          value.splice(valueIndex, 1)
+        }
 
         return value
       }
     )
       .then(
         value => {
+          if(!value) {
+            return
+          }
           asyncLocalStorage.setItem(dataName, value)
             .then(
               () => {
-                JSON.parse(localStorage.getItem(dataName))
-                  .map(element => {
+                let dataCheck = JSON.parse(localStorage.getItem(dataName))
+
+                dataCheck.map(element => {
                     return element.id
                   })
                   .find(id) ?

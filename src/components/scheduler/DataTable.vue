@@ -270,6 +270,7 @@
         if(/Time/.test(element)) {
           let startTime = orderOfTime(this.times()[index1].time[index2].startTime)
           let endTime = orderOfTime(this.times()[index1].time[index2].endTime)
+          console.log(startTime + ' ' + endTime)
 
           if(element === 'startTime') {
             let sleepEndTime = orderOfTime(this.getSleepTime().endTime)
@@ -291,12 +292,27 @@
             }
           }
         } else if(element === 'day') {
-          let day = this.times()[index1].time[index2].day
-          let array = this.times().map(
+          let timeInfo = this.times()[index1].time[index2]
+          let dayArray = this.times().map(
             value => {
+              return value.time
+                .filter(
+                  value1 => {
+                    return value1.day === timeInfo.day && value1.type === 'fixed'
+                  }
+                )
+                .map(
+                  value1 => {
+                    console.log(value1)
+                    value1.startTime = orderOfTime(value1.startTime)
+                    value1.endTime = orderOfTime(value1.endTime)
 
+                    return Object.assign(value1, {name: value.name})
+                  }
+                )
             }
           )
+          console.log([].concat.apply([], dayArray))
         }
 
         if(!/Row/.test(element)) {
