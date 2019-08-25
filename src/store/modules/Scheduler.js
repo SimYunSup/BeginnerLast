@@ -62,7 +62,6 @@ const mutations = {
     })
   },
   changePartOfData(state, elementInfo) {
-    console.log(elementInfo)
     switch (elementInfo.name) {
       case 'name':
         state.timeTableData[elementInfo.index1].name = elementInfo.value

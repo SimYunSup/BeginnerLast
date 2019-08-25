@@ -290,15 +290,22 @@
               return false
             }
           }
+        } else if(element === 'day') {
+          let day = this.times()[index1].time[index2].day
+          let array = this.times().map(
+            value => {
+
+            }
+          )
         }
 
-        if(/Row/.test(element)) {
+        if(!/Row/.test(element)) {
           let isNeedIndex2 = /day|Time/.test(element)
           let elementInfo = {
             name: element,
             value: isNeedIndex2 ?
-              this.times()[index1][element] :
-              this.times()[index1].time[index2][element],
+              this.timeTable[index1].time[index2][element] :
+              this.timeTable[index1][element],
             index1,
             index2
           }

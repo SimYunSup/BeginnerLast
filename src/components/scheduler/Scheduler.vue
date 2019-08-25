@@ -135,7 +135,11 @@
     name: "Scheduler",
     data() {
       return {
-        dayInfo: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+        dayInfo: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        colorArray: randomColor({
+          count: 48 * 7,
+          luminosty: 'light'
+        })
       }
     },
     methods: {
@@ -204,11 +208,17 @@
       timeTable() {
         let timesInfo = JSON.parse(JSON.stringify(this.scheduleData()))
           .map(
-            value => {
+            (value, index) => {
               let subjectInfo = JSON.parse(JSON.stringify(value.time))
               return subjectInfo.map(
-                  element => {
-                    return Object.assign(element, {name: value.name})
+                value1 => {
+                    return Object.assign(
+                      value1,
+                      {
+                        name: value.name,
+                        color: this.colorArray[index]
+                      }
+                    )
                   }
                 )
             }
@@ -241,17 +251,14 @@
                   : orderOfStartTime - sleepTimeInfo.scope
                 heightPixel = orderOfTime(value.endTime) - orderOfStartTime
               }
-
               let addValue = {
                 topPixel,
-                heightPixel,
-                color : randomColor({ luminosity: 'light' })
+                heightPixel
               }
 
               return Object.assign(value, addValue)
             }
           )
-        //This is for top attribute in datatable column below daily column
         let weeklyTable = Array.apply(null, {length: 7})
           .map(
             (value, index) => {
@@ -263,6 +270,7 @@
               return array === [] ? [] : array
             }
           )
+        //This is for top attribute in datatable column below daily column
         let dailyTable = Array.apply(null, {length: 7})
           .map(
             (value, index) => {
@@ -300,6 +308,7 @@
   }
   .scheduler__table {
     border-collapse: collapse;
+    overflow-y: scroll;
     width: 98%;
   }
 
