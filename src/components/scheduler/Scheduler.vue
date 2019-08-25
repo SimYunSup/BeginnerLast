@@ -138,7 +138,7 @@
         dayInfo: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         colorArray: randomColor({
           count: 48 * 7,
-          luminosty: 'light'
+          luminosity: 'light'
         })
       }
     },

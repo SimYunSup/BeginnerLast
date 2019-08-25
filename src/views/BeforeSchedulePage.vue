@@ -29,6 +29,7 @@
     <template #default>
       <b-row>
         <b-col
+          class="border-top py-3"
           cols="8"
           offset="2"
           lg="6"
