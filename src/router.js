@@ -29,6 +29,14 @@ export default new Router({
       path: '/scheduler',
       name: 'scheduler',
       component: () => import('./views/SchedulerPage.vue')
+    },
+    {
+      path: '/scheduler/before',
+      name: 'beforeSchedule',
+      component: () => import('./views/BeforeSchedulePage.vue'),
+      props: {
+        link: '/scheduler'
+      }
     }
   ]
 })
