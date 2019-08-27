@@ -6,7 +6,6 @@ const state = {
   visited: false,
   navbar: {
     simulator: true,
-    weather: false,
     wayfinding: false,
     scheduler: false,
     developer: false
@@ -35,7 +34,6 @@ const mutations = {
   changeNavbar(state, item){
     if(item === 'all') {
       state.navbar.simulator = true
-      state.navbar.weather = true
       state.navbar.wayfinding = true
       state.navbar.scheduler = true
       state.navbar.developer = true

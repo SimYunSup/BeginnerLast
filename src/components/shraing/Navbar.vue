@@ -75,7 +75,6 @@
       return {
         address: [
           '/simulator',
-          '/weather',
           '/wayfinding',
           '/scheduler/before',
           '/developer'
