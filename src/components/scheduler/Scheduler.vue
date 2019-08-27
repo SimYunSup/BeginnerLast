@@ -128,7 +128,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
   import randomColor from 'randomcolor'
 
   export default {
@@ -150,11 +150,16 @@
           'border-bottom': time[3] === '0' ? '1px dashed black' : '1px solid black'
         }
       },
+      //https://codeburst.io/vuex-getters-are-great-but-dont-overuse-them-9c946689b414
+      ...mapState(
+        'scheduler',
+        {
+          scheduleData: state => JSON.parse(JSON.stringify(state.timeTableData))
+        }
+      ),
       ...mapGetters({
         sleepTime: 'scheduler/getSleepTime',
-        isStartTimeBigger: 'scheduler/isStartTimeBigger',
-        scheduleData: 'scheduler/getTimeTable',
-        orderSleepTime: 'scheduler/getOrderOfSleepTime'
+        isStartTimeBigger: 'scheduler/isStartTimeBigger'
       }),
       dataColStyle(timeInfo) {
         return {
@@ -177,8 +182,8 @@
         let startTime, endTime
 
         if(this.isStartTimeBigger()) {
-          startTime = this.orderSleepTime().endTime
-          endTime = this.orderSleepTime().startTime
+          startTime = this.sleepTime().endTime
+          endTime = this.sleepTime().startTime
 
           for(let i = startTime; i < endTime; i++){
             let hour = i / 2
@@ -189,8 +194,8 @@
             timeArray.push(timeString)
           }
         } else {
-          startTime = this.orderSleepTime().startTime
-          endTime = this.orderSleepTime().endTime
+          startTime = this.sleepTime().startTime
+          endTime = this.sleepTime().endTime
 
           for(let i = 0; i < 48; i++) {
             let hour = i / 2
@@ -206,35 +211,30 @@
         return timeArray
       },
       timeTable() {
-        let timesInfo = JSON.parse(JSON.stringify(this.scheduleData()))
+        let timesInfo = this.scheduleData()
           .map(
             (value, index) => {
               let subjectInfo = JSON.parse(JSON.stringify(value.time))
               return subjectInfo.map(
-                value1 => {
-                    return Object.assign(
-                      value1,
-                      {
-                        name: value.name,
-                        color: this.colorArray[index]
-                      }
-                    )
+                value1 => Object.assign(
+                  value1,
+                  {
+                    name: value.name,
+                    color: this.colorArray[index]
                   }
                 )
+              )
             }
           )
         let sleepTimeInfo = {
-          startOrder: this.orderSleepTime().startTime,
-          scope: this.orderSleepTime().endTime
-            - this.orderSleepTime().startTime
+          startOrder: this.sleepTime().startTime,
+          scope: this.sleepTime().endTime
+            - this.sleepTime().startTime
         }
-        const orderOfTime = (string) => {
-          return Number(string.slice(0, 2)) * 2
-            + (string[3] === '0' ? 0 : 1)
-        }
+
         //count daily column
         let dailyColumnNumber = Array.apply(null, {length: 7})
-          .map( () => { return 0 })
+          .map(() => 0)
         //https://stackoverflow.com/questions/10865025/merge-flatten-an-array-of-arrays
         let timeInfoArray = [].concat.apply([], timesInfo)
           .map(
@@ -245,11 +245,14 @@
               if(value.type === 'flex') {
                 topPixel = (dailyColumnNumber[value.day]++)
               } else {
-                let orderOfStartTime = orderOfTime(value.startTime)
-                topPixel = (sleepTimeInfo.startOrder > orderOfStartTime)
-                  ? orderOfStartTime
-                  : orderOfStartTime - sleepTimeInfo.scope
-                heightPixel = orderOfTime(value.endTime) - orderOfStartTime
+                if(value.startTime !== null && value.endTime !== null) {
+                  topPixel = (sleepTimeInfo.startOrder > value.startTime)
+                    ? value.startTime
+                    : value.startTime - sleepTimeInfo.scope
+                  heightPixel = value.endTime - value.startTime
+                } else {
+                  return {}
+                }
               }
               let addValue = {
                 topPixel,
@@ -263,10 +266,25 @@
           .map(
             (value, index) => {
               let array = timeInfoArray.filter(
-                element => {
-                  return element.day === index && element.type === 'fixed'
-                }
+                element =>
+                  element.day === index && element.type === 'fixed'
               )
+                .map(
+                  element => {
+                    let startHour = parseInt(element.startTime / 2)
+                    let startMinute = (element.startTime % 2) * 30
+                    element.startTime = ('0' + startHour).slice(-2) + ':' +
+                      ('00' + startMinute).slice(-2)
+
+                    let endHour = parseInt(element.endTime / 2)
+                    let endMinute = (element.endTime % 2) * 30
+                    element.endTime = ('0' + endHour).slice(-2) + ':' +
+                      ('00' + endMinute).slice(-2)
+
+                    return element
+                  }
+              )
+
               return array === [] ? [] : array
             }
           )
@@ -275,10 +293,20 @@
           .map(
             (value, index) => {
               let array = timeInfoArray.filter(
-                element => {
-                  return element.day === index && element.type === 'flex'
-                }
+                element =>
+                  element.day === index && element.type === 'flex'
               )
+                .map(
+                  element => {
+                    let hour = parseInt(element.time / 2)
+                    let minute = (element.time % 2) * 30
+                    element.time = ('0' + hour).slice(-2) + ':' +
+                      ('00' + minute).slice(-2)
+
+                    return element
+                  }
+                )
+
               return array === [] ? [] : array
             }
           )
@@ -308,7 +336,6 @@
   }
   .scheduler__table {
     border-collapse: collapse;
-    overflow-y: scroll;
     width: 98%;
   }
 

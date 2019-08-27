@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import WayFindingDetail from "./components/wayfinding/WayFindingDetail";
 
 Vue.use(Router)
 
@@ -28,7 +29,10 @@ export default new Router({
     {
       path: '/scheduler',
       name: 'scheduler',
-      component: () => import('./views/SchedulerPage.vue')
+      component: () => import('./views/SchedulerPage.vue'),
+      props: {
+        nextLink: '/scheduler/daily'
+      }
     },
     {
       path: '/scheduler/before',
@@ -37,6 +41,29 @@ export default new Router({
       props: {
         link: '/scheduler'
       }
+    },
+    {
+      path: '/scheduler/daily',
+      name: 'dailyStudy',
+      component: () => import('./views/DailyStudyPage.vue'),
+      props: {
+        nextLink: '/scheduler'
+      }
+    },
+    {
+      path: '/wayfinding',
+      name: 'wayfindingSearch',
+      component: () => import('./views/WayFindingPage.vue')
+    },
+    {
+      path: '/wayfinding/:index',
+      component: () => import('./views/WayFindingPage.vue'),
+      children: [
+        {
+          path: '',
+          component: () => import('./components/wayfinding/WayFindingDetail.vue')
+        }
+      ]
     }
   ]
 })

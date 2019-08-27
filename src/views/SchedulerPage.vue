@@ -11,39 +11,10 @@
       <div
         class="schedulerpage__table"
       >
-        <data-table/>
+        <data-table
+          :next-link="nextLink"
+        />
       </div>
-    </div>
-    <div
-      class="schedulerpage__buttonrow"
-    >
-      <b-button
-        class="schedulerpage__button"
-        variant="success"
-        @click="addRow"
-      >
-        +
-      </b-button>
-      <b-button
-        class="schedulerpage__button"
-        variant="info"
-      >
-        create daily study
-      </b-button>
-      <b-button
-        class="schedulerpage__button"
-        variant="primary"
-        @click="saveData"
-      >
-        Save
-      </b-button>
-      <b-button
-        class="schedulerpage__button"
-        variant="danger"
-        @click="resetData"
-      >
-        Reset
-      </b-button>
     </div>
   </div>
 </template>
@@ -51,22 +22,27 @@
 <script>
   import scheduler from '@/components/scheduler/Scheduler'
   import dataTable from '@/components/scheduler/DataTable'
-  import { mapMutations, mapActions } from 'vuex'
+  import { mapActions } from 'vuex'
 
   export default {
     name: "SchdulerPage",
+    props: {
+      nextLink: {
+        type: String,
+        required: true
+      }
+    },
     components: {
       scheduler,
       dataTable
     },
     methods: {
-      ...mapMutations({
-        addRow: 'scheduler/addTimeDataRow'
-      }),
       ...mapActions({
-        saveData: 'scheduler/addData',
-        resetData: 'scheduler/removeData'
+        loadData: 'scheduler/loadData'
       })
+    },
+    async created() {
+      await this.loadData
     }
   }
 </script>
@@ -88,6 +64,7 @@
     height: 80%;
   }
   .schedulerpage__table {
+    overflow-y: scroll;
     width: 100%;
     height: 20%;
   }
@@ -102,16 +79,5 @@
       width: 40%;
       height: 100%;
     }
-  }
-
-  .schedulerpage__buttonrow {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    flex-direction: row;
-  }
-  .schedulerpage__button {
-    width: fit-content;
-    margin-right: 5px;
   }
 </style>

@@ -38,6 +38,7 @@
           Your Sleeptime :
         </b-col>
       </b-row>
+
       <b-row>
         <b-col
           cols="8"
@@ -89,6 +90,7 @@
           </b-row>
         </b-col>
       </b-row>
+
     </template>
   </select-page>
 </template>
@@ -115,8 +117,7 @@
     },
     methods: {
       ...mapGetters({
-        getSleepTime: 'scheduler/getSleepTime',
-        orderSleepTime: 'scheduler/getOrderOfSleepTime'
+        getSleepTime: 'scheduler/getSleepTime'
       }),
       ...mapMutations({
         setSleepTime: 'scheduler/setSleepTime',
@@ -140,12 +141,12 @@
           let timeString = ('0' + hour).slice(-2) + ':' +
             ('00' + minute).slice(-2)
 
-          timeArray.push({value: timeString, text: timeString})
+          timeArray.push({value: i, text: timeString})
         }
         let startTimeArray = [].concat(timeArray)
         let endTimeArray = [].concat(timeArray)
-        startTimeArray.splice(this.orderSleepTime().endTime, 1)
-        endTimeArray.splice(this.orderSleepTime().startTime, 1)
+        startTimeArray.splice(this.sleepTime.endTime, 1)
+        endTimeArray.splice(this.sleepTime.startTime, 1)
         return {
           startTime: startTimeArray,
           endTime: endTimeArray
@@ -154,6 +155,9 @@
     },
     components: {
       selectPage
+    },
+    async created() {
+      await this.loadData
     }
   }
 </script>
