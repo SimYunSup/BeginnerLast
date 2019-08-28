@@ -1,4 +1,12 @@
+import sha256 from "./encoding";
 //This is localstorage as a substitute of DB.
+
+const encoding = (accountSetting) => {
+  accountSetting.id = sha256(accountSetting.id)
+  accountSetting.password = sha256(accountSetting.password)
+
+  return accountSetting
+}
 
 const getIDArray = () => {
   let accounts = JSON.parse(localStorage.getItem('accounts'))
@@ -29,6 +37,7 @@ const asyncLocalStorage = {
 //This accountSetting is for event submitRegister
 const makeAccount = (accountSetting) => {
   let accounts = asyncLocalStorage.getItem('accounts')
+  accountSetting = encoding(accountSetting)
 
   return new Promise((resolve, reject) => {
     accounts
@@ -57,6 +66,7 @@ const makeAccount = (accountSetting) => {
 const changeAccount = (accountSetting) => {
   let accounts = asyncLocalStorage.getItem('accounts')
   let idArray = getIDArray()
+  accountSetting = sha256(accountSetting)
   let index = idArray.indexOf(accountSetting.id)
 
   return new Promise((resolve, reject) => {
@@ -85,6 +95,7 @@ const changeAccount = (accountSetting) => {
 const removeAccount = (accountID) => {
   let accounts = asyncLocalStorage.getItem('accounts')
   let idArray = getIDArray()
+  accountID = sha256(accountID)
   let index = idArray.indexOf(accountID)
 
   return new Promise((resolve, reject) => {
@@ -111,6 +122,7 @@ const removeAccount = (accountID) => {
 
 const idCheck = (accountID) => {
   let idArray = getIDArray()
+  accountID = sha256(accountID)
   let index = idArray.indexOf(accountID)
 
   return new Promise((resolve, reject) => {
@@ -121,6 +133,7 @@ const idCheck = (accountID) => {
 //This account setting is Object
 //id and password
 const loginCheck = (accountSetting) => {
+  accountSetting = encoding(accountSetting)
   let index = getIDArray().indexOf(accountSetting.id)
   let accounts = JSON.parse(localStorage.getItem('accounts'))
 
