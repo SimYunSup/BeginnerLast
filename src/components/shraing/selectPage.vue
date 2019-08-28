@@ -2,49 +2,6 @@
   <div class="selectpage">
     <b-row
       no-gutters
-      v-if="type === 'progress'"
-    >
-      <b-col
-        class="selectpage__progresscol"
-      >
-        <b-button
-          variant="outline-secondary"
-          class="selectpage__progressbutton"
-          @click="previousProgress"
-        >
-          &lt;
-        </b-button>
-      </b-col>
-
-      <b-col
-        class="selectpage__progresscol"
-        cols="10"
-      >
-        <b-progress
-          class="selectpage__progress"
-          :max="progress.max"
-          :value="progress.value"
-          show-value
-          striped
-          animated
-        />
-      </b-col>
-
-      <b-col
-        class="selectpage__progresscol"
-      >
-        <b-button
-          variant="outline-secondary"
-          class="selectpage__progressbutton"
-          @click="nextProgress"
-        >
-          &gt;
-        </b-button>
-      </b-col>
-    </b-row>
-
-    <b-row
-      no-gutters
     >
       <b-col
         class="selectpage__title"
@@ -79,17 +36,6 @@
       title: {
         type: String,
         required: true
-      },
-      progress: {
-        type: Object
-      }
-    },
-    methods: {
-      previousProgress() {
-        this.$emit('previous')
-      },
-      nextProgress() {
-        this.$emit('next')
       }
     }
   }
@@ -98,7 +44,7 @@
 <style scoped>
   .selectpage {
     padding-top: 100px;
-    height: 90vh;
+    height: 85vh;
   }
   .selectpage__title {
     font-size: 1.7rem;
@@ -118,19 +64,6 @@
     .selectpage__explanation {
       font-size: 1.2rem;
     }
-  }
-
-  .selectpage__progresscol {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-  }
-  .selectpage__progress {
-    width: 100%;
-  }
-  .selectpage__progressbutton {
-    height: 100%;
   }
 
 </style>

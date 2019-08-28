@@ -41,6 +41,7 @@
         ></div>
         <b-button
           class="main__button"
+          to="/simulator"
         >
           아니오
         </b-button>
@@ -82,7 +83,6 @@ export default {
     ),
     skipAll() {
       this.changeNavbar('all')
-      this.changeVisitedCondition()
 
       this.$router.push('/login')
     }
@@ -99,6 +99,9 @@ export default {
     this.loginState === true
       ? this.changeVisitedCondition()
       : {}
+  },
+  beforeDestroy() {
+    this.changeVisitedCondition()
   }
 }
 </script>

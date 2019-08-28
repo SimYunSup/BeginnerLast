@@ -457,7 +457,7 @@
 <style scoped>
   .dailystudypage {
     padding-top: 100px;
-    height: 90vh;
+    height: fit-content;
   }
   .dailystudypage__title {
     font-size: 1.7rem;

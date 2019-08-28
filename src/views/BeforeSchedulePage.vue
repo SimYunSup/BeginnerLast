@@ -29,7 +29,7 @@
     <template #default>
       <b-row>
         <b-col
-          class="border-top py-3"
+          class="border-top py-2"
           cols="8"
           offset="2"
           lg="6"

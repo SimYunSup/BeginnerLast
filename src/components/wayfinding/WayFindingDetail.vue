@@ -46,11 +46,9 @@
       }
     },
     mounted() {
-      console.log(window.kakao)
       // eslint-disable-next-line no-undef
       kakao.maps.load(function () {
         let element = document.getElementsByClassName('waydetail__map')[0]
-        console.log(element)
         let option = {
           // eslint-disable-next-line no-undef
           center: new kakao.maps.LatLng(33.450701, 126.570667),
