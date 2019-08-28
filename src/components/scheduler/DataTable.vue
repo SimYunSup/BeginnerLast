@@ -6,37 +6,7 @@
       class="datatable__sleeptime"
       v-if="isWidthExtraLarge"
     >
-      <div>
-        Your Sleeptime :
-      </div>
-      <div
-        class="datatable__timerow"
-      >
-        <div
-          class="datatable__selectrow"
-        >
-          <b-form-select
-            class="datatable__select border-0"
-            size="sm"
-            v-model="sleepTime.startTime"
-            :options="sleepTimeOption.startTime"
-          />
-          ~
-          <b-form-select
-            class="datatable__select border-0"
-            size="sm"
-            v-model="sleepTime.endTime"
-            :options="sleepTimeOption.endTime"
-          />
-        </div>
-
-        <b-button
-          class="datatable__button--apply"
-          @click="setSleepTime(sleepTime)"
-        >
-          Apply
-        </b-button>
-      </div>
+      <sleep-time/>
     </div>
 
     <div
@@ -207,6 +177,7 @@
 
 <script>
   import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
+  import SleepTime from "./SleepTime";
 
   export default {
     name: "DataTable",
@@ -246,7 +217,6 @@
       }),
       ...mapMutations({
         addTimeDataRow: 'scheduler/addTimeDataRow',
-        setSleepTime: 'scheduler/setSleepTime',
         changeData: 'scheduler/changePartOfData'
       }),
       ...mapActions({
@@ -448,6 +418,9 @@
           )
       }
     },
+    components: {
+      SleepTime
+    },
     mounted() {
       window.addEventListener('resize', () => {
         this.windowWidth = window.innerWidth
@@ -467,30 +440,14 @@
 
   .datatable__sleeptime {
     width: 95%;
-    height: 70px;
+    height: 100px;
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 5px;
     border-bottom: 1px solid gray;
   }
-  .datatable__timerow {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .datatable__selectrow {
-    margin: 0;
-    width: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
   .datatable__select {
     width: 70px;
-  }
-  .datatable__button--apply {
-    width: 20%;
-    float: right;
   }
   .datatable__wrapper--table {
     width: 100%;

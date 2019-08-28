@@ -293,7 +293,7 @@
           )
         }
 
-        for(let i = 0; i < 1; i++) {
+        for(let i = 0; i < 7; i++) {
           let index = 0
           let step = 0
           for(let j = 0; j < remainTime[i].length; j++) {
