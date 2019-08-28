@@ -29,75 +29,24 @@
     <template #default>
       <b-row>
         <b-col
-          class="border-top py-2"
           cols="8"
           offset="2"
           lg="6"
           offset-lg="3"
         >
-          Your Sleeptime :
+          <sleep-time
+            @next="pushScheduler"
+          />
         </b-col>
       </b-row>
-
-      <b-row>
-        <b-col
-          cols="8"
-          offset="2"
-          md="6"
-          offset-md="3"
-        >
-          <b-row
-            class="justify-content-center"
-            no-gutters
-          >
-            <b-col
-              cols="2"
-            >
-              <b-form-select
-                class="beforeschedule__select"
-                size="sm"
-                v-model="sleepTime.startTime"
-                :options="sleepTimeOption.startTime"
-              />
-            </b-col>
-            <b-col
-              class="text-center"
-              cols="1"
-            >
-              ~
-            </b-col>
-            <b-col
-              cols="2"
-            >
-              <b-form-select
-                class="beforeschedule__select"
-                size="sm"
-                v-model="sleepTime.endTime"
-                :options="sleepTimeOption.endTime"
-              />
-            </b-col>
-            <b-col
-              cols="2"
-            >
-              <b-button
-                class="beforeschedule__button mx-4"
-                variant="info"
-                @click="pushScheduler"
-              >
-                Apply
-              </b-button>
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
-
     </template>
   </select-page>
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   import selectPage from "../components/shraing/selectPage";
-  import { mapGetters, mapMutations, mapActions } from 'vuex'
+  import SleepTime from "../components/scheduler/SleepTime";
 
   export default {
     name: "BeforeSchedulePage",
@@ -107,54 +56,17 @@
         required: true
       }
     },
-    data() {
-      return {
-        sleepTime: {
-          startTime: this.getSleepTime().startTime,
-          endTime: this.getSleepTime().endTime
-        }
-      }
-    },
     methods: {
-      ...mapGetters({
-        getSleepTime: 'scheduler/getSleepTime'
-      }),
-      ...mapMutations({
-        setSleepTime: 'scheduler/setSleepTime',
-        changeData: 'scheduler/changePartOfData'
-      }),
       ...mapActions({
         loadScheduler: 'scheduler/loadData'
       }),
       pushScheduler() {
-        this.setSleepTime(this.sleepTime)
         this.$router.push(this.link)
       }
     },
-    computed: {
-      sleepTimeOption() {
-        let timeArray= []
-
-        for(let i = 0; i < 48; i++){
-          let hour = parseInt(i / 2)
-          let minute = (i % 2) * 30
-          let timeString = ('0' + hour).slice(-2) + ':' +
-            ('00' + minute).slice(-2)
-
-          timeArray.push({value: i, text: timeString})
-        }
-        let startTimeArray = [].concat(timeArray)
-        let endTimeArray = [].concat(timeArray)
-        startTimeArray.splice(this.sleepTime.endTime, 1)
-        endTimeArray.splice(this.sleepTime.startTime, 1)
-        return {
-          startTime: startTimeArray,
-          endTime: endTimeArray
-        }
-      }
-    },
     components: {
-      selectPage
+      selectPage,
+      SleepTime
     },
     async created() {
       await this.loadData
