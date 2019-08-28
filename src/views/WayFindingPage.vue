@@ -23,6 +23,8 @@
           select-mode="single"
           selected-variant="primary"
           @row-selected="showDetail"
+          :filter="searchString"
+          :filter-ignored-field="ignoredField"
           :items="placeArray"
           :fields="fields"
           responsive
@@ -54,6 +56,7 @@
           {key: 'floor', label:'Floor', class:'text-center'},
           {key: 'placeDetail', label:'Room Number', class:'text-center'}
         ],
+        ignoredField: ['x', 'y'],
         windowWidth: window.innerWidth
       }
     },

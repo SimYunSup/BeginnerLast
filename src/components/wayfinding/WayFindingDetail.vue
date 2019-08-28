@@ -20,7 +20,7 @@
           {{ placeInfo.placeDetail }}
         </div>
         <div>
-          {{ placeInfo.infomation }}
+          {{ placeInfo.explanation }}
         </div>
       </b-col>
       <b-col
@@ -40,9 +40,15 @@
 
   export default {
     name: "WayFindingDetail",
+    props: {
+      index: {
+        type: Number
+      }
+    },
     computed: {
       placeInfo() {
-        return place.place[this.$route.params.index]
+        let index = (this.index === null ? this.$route.params.index : this.index)
+        return place.place[index]
       }
     },
     mounted() {
