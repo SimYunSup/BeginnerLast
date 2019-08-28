@@ -39,7 +39,7 @@ const mutations = {
       state.navbar.developer = true
     } else
     //item is state to change
-      state[item] = true
+      state.navbar[item] = true
   },
   changeVisitedCondition(state) {
     state.visited = true
