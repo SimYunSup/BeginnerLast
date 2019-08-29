@@ -11,16 +11,11 @@
       </b-col>
       <b-col
         class="seventhds__router"
-        cols="10"
-        offset="1"
-        md="8"
-        offset-md="2"
-        lg="6"
-        offset-lg="3"
+        cols="12"
       >
         <!-- FIXME: it doesn't pass props to child component -->
-        <daily
-          next-link="/simulator/8"
+        <daily-study-page
+          @next="nextPage"
         />
       </b-col>
     </b-row>
@@ -28,18 +23,17 @@
 </template>
 
 <script>
-  import daily from "../../views/DailyStudyPage";
+  import DailyStudyPage from "../../views/DailyStudyPage";
 
   export default {
     name: "SeventhDailyStudy",
     methods: {
-      next() {
-        console.log('a')
-        this.$router.replace('/simulator/8')
+      nextPage() {
+        this.$router.push('/simulator/8')
       }
     },
     components: {
-      daily
+      DailyStudyPage
     }
   }
 </script>

@@ -65,5 +65,6 @@
   }
   .eighth__table {
     height: 400px;
+    overflow-y: scroll;
   }
 </style>

@@ -240,12 +240,6 @@
         dayInfo: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
       }
     },
-    props: {
-      nextLink: {
-        type: String,
-        default: '/simulator/8'
-      }
-    },
     methods: {
       ...mapGetters({
         timeTable: 'scheduler/getTimeTable',
@@ -418,8 +412,8 @@
         }
       },
       next() {
-        //FIXME
-        this.$router.replace(this.nextLink)
+        console.log(this.$emit)
+        this.$emit('next')
       },
       previous() {
         this.$router.go(-1)

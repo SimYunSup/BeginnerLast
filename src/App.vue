@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <navbar/>
-    <router-view/>
+    <router-view
+      @next="nextPage"
+    />
 
     <lower>
       <b-col
@@ -33,6 +35,12 @@
   import lower from '@/components/shraing/Lower.vue'
 
   export default {
+    methods: {
+      //This is for reuse of DailyStudyPage component
+      nextPage() {
+        this.$router.push('/scheduler')
+      }
+    },
     components: {
       navbar,
       lower

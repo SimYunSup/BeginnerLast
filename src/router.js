@@ -110,7 +110,7 @@ export default new Router({
         },
         {
           path: '7/daily',
-          component: () => import('./views/DailyStudyPage.vue')
+          component: () => import('./components/simulator/SeventhDailyStudy.vue')
         },
         {
           path: '8',
