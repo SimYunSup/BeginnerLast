@@ -11,11 +11,14 @@
             class="scheduler__head--first"
           ></td>
           <td
-            class="scheduler__head"
             v-for="(day, index) in dayInfo"
             :key="index"
           >
-            {{ day }}
+            <div
+              class="scheduler__head"
+            >
+              {{ day }}
+            </div>
           </td>
         </tr>
       </thead>
@@ -38,6 +41,7 @@
         </tr>
 
         <tr
+          class="scheduler__row"
           v-for="(timeString, index) in timeInfo"
           :style="tableRowStyle(timeString)"
           :key="index"
@@ -61,7 +65,7 @@
       no-gutters
     >
       <div
-        class="scheduler__firstcol"
+        class="scheduler__firstcol--over"
       ></div>
 
       <b-col
@@ -94,7 +98,7 @@
       no-gutters
     >
       <div
-        class="scheduler__firstcol"
+        class="scheduler__firstcol--over"
       ></div>
 
       <b-col
@@ -163,9 +167,9 @@
       }),
       dataColStyle(timeInfo) {
         return {
-          top: timeInfo.topPixel * 50 + 'px',
+          top: timeInfo.topPixel * 70 + 'px',
           width: '100%',
-          height: timeInfo.heightPixel * 50 + 'px',
+          height: timeInfo.heightPixel * 70 + 'px',
           'background-color': timeInfo.color
         }
       }
@@ -311,7 +315,7 @@
             }
           )
         let maxOfDailyColumn = Math.max.apply(null, dailyColumnNumber)
-        let weeklyTableTopPixel = 26 + (maxOfDailyColumn ? maxOfDailyColumn * 50 : 50)
+        let weeklyTableTopPixel = 30 + (maxOfDailyColumn ? maxOfDailyColumn * 70 : 70)
 
         return {
           weeklyTable,
@@ -320,7 +324,7 @@
             top: weeklyTableTopPixel + 'px'
           },
           dailyRowStyle: {
-            height: (maxOfDailyColumn ? maxOfDailyColumn * 50 : 50) + 'px'
+            height: (maxOfDailyColumn ? maxOfDailyColumn * 70 : 70) + 'px'
           }
         }
       }
@@ -331,49 +335,55 @@
 <style scoped>
   .scheduler {
     position: relative;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    height: 100%;
   }
   .scheduler__table {
-    border-collapse: collapse;
-    width: 98%;
+    table-layout: fixed;
   }
 
   .scheduler__head {
     text-align: center;
-    height: 20px;
+    height: 30px;
   }
   .scheduler__dailyrow {
     border-bottom: 1px solid black;
   }
-  .scheduler__firstcol {
-    text-align: center;
-    width: 9%;
+  .scheduler__row {
     height: 50px;
   }
+  .scheduler__firstcol {
+    text-align: center;
+    width: 70px;
+    height: 70px;
+  }
   .scheduler__col {
-    width: 50px;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
+    width: 100px;
+    height: 70px;
   }
 
   .scheduler__dailytable {
     position: absolute;
     z-index: 1;
-    width: 98%;
-    top: 26px;
+    width: 770px;
+    top: 30px;
     left: 0;
+  }
+  .scheduler__firstcol--over {
+    width: 70.5px;
+    height: 70px;
   }
   .scheduler__weeklytable {
     position: absolute;
     z-index: 1;
-    width: 98%;
     height: fit-content;
     left: 0;
   }
   .scheduler__datacol {
     position: relative;
-    width: 100%;
+    width: 100px;
     height: fit-content;
   }
   .scheduler__element {

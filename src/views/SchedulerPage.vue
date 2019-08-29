@@ -5,9 +5,12 @@
     <div
       class="schedulerpage__content"
     >
-      <scheduler
+      <div
         class="schedulerpage__scheduler"
-      />
+      >
+        <scheduler/>
+      </div>
+
       <div
         class="schedulerpage__table"
       >
@@ -59,12 +62,14 @@
   }
 
   .schedulerpage__scheduler {
+    overflow-y: scroll;
+    overflow-x: scroll;
     width: 100%;
     min-width: 550px;
     height: 80%;
   }
   .schedulerpage__table {
-    overflow-y: scroll;
+    overflow-y: auto;
     width: 100%;
     height: 20%;
   }
