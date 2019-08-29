@@ -36,13 +36,13 @@ const mutations = {
 
 const actions = {
   makeAccount({ state }, accountSetting) {
-    register.makeAccount(accountSetting)
+    register.makeAccount(JSON.parse(JSON.stringify(accountSetting)))
       .then(
         () => {alert('Register Success')},
         () => {alert('Register failed. Please try again.')}
       )
 
-    return !!state.registeredID
+    return !!state.account
   },
   removeAccount({ state, dispatch }) {
     register.removeAccount(state.account.id)
@@ -68,7 +68,7 @@ const actions = {
     return idCheckState
   },
   signIn({ commit }, accountSetting) {
-    return login.loginCheck(accountSetting)
+    return login.loginCheck(JSON.parse(JSON.stringify(accountSetting)))
       .then(
         (account) => {
           delete account.password
