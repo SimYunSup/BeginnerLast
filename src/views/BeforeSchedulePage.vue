@@ -35,7 +35,7 @@
           offset-lg="3"
         >
           <sleep-time
-            @next="pushScheduler"
+            :next-link="link"
           />
         </b-col>
       </b-row>
@@ -59,10 +59,7 @@
     methods: {
       ...mapActions({
         loadScheduler: 'scheduler/loadData'
-      }),
-      pushScheduler() {
-        this.$router.push(this.link)
-      }
+      })
     },
     components: {
       selectPage,

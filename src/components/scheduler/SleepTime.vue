@@ -68,6 +68,11 @@
         }
       }
     },
+    props: {
+      nextLink: {
+        type: String
+      }
+    },
     methods: {
       ...mapState(
         'scheduler',
@@ -109,7 +114,7 @@
             fixedTimeArray[i].endTime - fixedTimeArray[i].startTime
           )
         }
-        console.log(remainTime)
+
         for(let i = 0; i < 7; i++) {
           let startIndex = remainTime[i]
             .findIndex(
@@ -119,7 +124,7 @@
             .findIndex(
               value => value === this.sleepTime.endTime
             )
-          console.log(startIndex + ' ' + endIndex)
+
           if(startIndex === -1 || endIndex === -1 ||
             endIndex - startIndex !== this.sleepTime.endTime - this.sleepTime.startTime) {
             alert('Time Scope Error!')
@@ -145,7 +150,7 @@
         }
 
         this.setSleepTime(this.sleepTime)
-        this.$emit('next')
+        this.$router.push(this.nextLink)
       }
     },
     computed: {
