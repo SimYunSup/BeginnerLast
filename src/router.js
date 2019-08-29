@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import WayFindingDetail from "./components/wayfinding/WayFindingDetail";
 
 Vue.use(Router)
 
@@ -52,16 +51,71 @@ export default new Router({
     },
     {
       path: '/wayfinding',
-      name: 'wayfindingSearch',
       component: () => import('./views/WayFindingPage.vue')
     },
     {
       path: '/wayfinding/:index',
+      alias: '/wayfinding',
       component: () => import('./views/WayFindingPage.vue'),
       children: [
         {
           path: '',
           component: () => import('./components/wayfinding/WayFindingDetail.vue')
+        }
+      ]
+    },
+    {
+      path: '/simulator',
+      component: () => import('./views/SimulatorPage.vue'),
+      children: [
+        {
+          path: '1',
+          alias: '',
+          name: 'firstSimulator',
+          component: () => import('./components/simulator/first.vue')
+        },
+        {
+          path: '2',
+          name: 'secondSimulator',
+          component: () => import('./components/simulator/Second.vue')
+        },
+        {
+          path: '3',
+          name: 'thirdSimulator',
+          component: () => import('./components/simulator/Third.vue')
+        },
+        {
+          path: '4',
+          name: 'fourthSimulator',
+          component: () => import('./components/simulator/Fourth.vue')
+        },
+        {
+          path: '5',
+          name: 'fifthSimulator',
+          component: () => import('./components/simulator/Fifth.vue')
+        },
+        {
+          path: '6',
+          name: 'sixthSimulator',
+          component: () => import('./components/simulator/Sixth.vue')
+        },
+        {
+          path: '7',
+          name: 'seventhSimulator',
+          component: () => import('./components/simulator/Seventh.vue')
+        },
+        {
+          path: '7/data',
+          component: () => import('./components/simulator/SeventhDataTable.vue')
+        },
+        {
+          path: '7/daily',
+          component: () => import('./views/DailyStudyPage.vue')
+        },
+        {
+          path: '8',
+          name: 'eighthSimulator',
+          component: () => import('./components/simulator/Eighth.vue')
         }
       ]
     }

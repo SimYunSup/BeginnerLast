@@ -243,7 +243,7 @@
     props: {
       nextLink: {
         type: String,
-        required: true
+        default: '/simulator/8'
       }
     },
     methods: {
@@ -418,7 +418,8 @@
         }
       },
       next() {
-        this.$router.push(this.nextLink)
+        //FIXME
+        this.$router.replace(this.nextLink)
       },
       previous() {
         this.$router.go(-1)
@@ -457,7 +458,9 @@
 <style scoped>
   .dailystudypage {
     padding-top: 100px;
-    height: fit-content;
+    height: 80%;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
   .dailystudypage__title {
     font-size: 1.7rem;
