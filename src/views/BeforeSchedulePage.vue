@@ -35,7 +35,7 @@
           offset-lg="3"
         >
           <sleep-time
-            :next-link="link"
+            @next="next"
           />
         </b-col>
       </b-row>
@@ -50,16 +50,14 @@
 
   export default {
     name: "BeforeSchedulePage",
-    props: {
-      link: {
-        type: String,
-        required: true
-      }
-    },
+
     methods: {
       ...mapActions({
         loadScheduler: 'scheduler/loadData'
-      })
+      }),
+      next() {
+        this.$emit('next')
+      }
     },
     components: {
       selectPage,

@@ -15,7 +15,7 @@
         class="schedulerpage__table"
       >
         <data-table
-          :next-link="nextLink"
+          @next="next"
         />
       </div>
     </div>
@@ -29,12 +29,6 @@
 
   export default {
     name: "SchdulerPage",
-    props: {
-      nextLink: {
-        type: String,
-        required: true
-      }
-    },
     components: {
       scheduler,
       dataTable
@@ -42,7 +36,10 @@
     methods: {
       ...mapActions({
         loadData: 'scheduler/loadData'
-      })
+      }),
+      next() {
+        this.$emit('next')
+      }
     },
     async created() {
       await this.loadData

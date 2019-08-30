@@ -150,7 +150,7 @@
         }
 
         this.setSleepTime(this.sleepTime)
-        this.$router.push(this.nextLink)
+        this.$emit('next')
       }
     },
     computed: {

@@ -28,26 +28,17 @@ export default new Router({
     {
       path: '/scheduler',
       name: 'scheduler',
-      component: () => import('./views/SchedulerPage.vue'),
-      props: {
-        nextLink: '/scheduler/daily'
-      }
+      component: () => import('./views/SchedulerPage.vue')
     },
     {
       path: '/scheduler/before',
       name: 'beforeSchedule',
-      component: () => import('./views/BeforeSchedulePage.vue'),
-      props: {
-        link: '/scheduler'
-      }
+      component: () => import('./views/BeforeSchedulePage.vue')
     },
     {
       path: '/scheduler/daily',
       name: 'dailyStudy',
-      component: () => import('./views/DailyStudyPage.vue'),
-      props: {
-        nextLink: '/scheduler'
-      }
+      component: () => import('./views/DailyStudyPage.vue')
     },
     {
       path: '/wayfinding',

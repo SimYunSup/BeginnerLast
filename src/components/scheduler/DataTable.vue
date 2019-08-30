@@ -153,7 +153,7 @@
       <b-button
         class="mx-1"
         variant="info"
-        :to="nextLink"
+        @click="nextPage"
       >
         create daily study
       </b-button>
@@ -198,12 +198,6 @@
     },
     //props를 통해 배열/객체를 가져오는 경우 참조를 전달하므로
     //하위 컴포넌트에서 바꾸는 경우 상위 컴포넌트에 영향을 준다!
-    props: {
-      nextLink: {
-        type: String,
-        required: true
-      }
-    },
     methods: {
       ...mapState(
         'scheduler',
@@ -376,6 +370,9 @@
       addTimeRow() {
         this.addTimeDataRow()
         this.timeTable = this.getTimeTable()
+      },
+      nextPage() {
+        this.$emit('next')
       }
     },
     computed: {
