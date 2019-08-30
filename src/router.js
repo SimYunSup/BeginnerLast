@@ -109,6 +109,11 @@ export default new Router({
           component: () => import('./components/simulator/Eighth.vue')
         }
       ]
+    },
+    {
+      path: '/developer',
+      name: 'developer',
+      component: () => import('./views/DeveloperPage.vue')
     }
   ]
 })
