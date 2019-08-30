@@ -52,8 +52,7 @@
           let roadview = new kakao.maps.Roadview(container, {pan: 180})
           // eslint-disable-next-line no-undef
           let roadviewClient = new kakao.maps.RoadviewClient()
-          console.log(roadview)
-          console.log(roadviewClient)
+
           // eslint-disable-next-line no-undef
           let position = new kakao.maps.LatLng(36.767198, 127.283946)
 

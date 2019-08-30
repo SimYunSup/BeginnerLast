@@ -44,7 +44,12 @@
         </b-button>
       </b-col>
     </b-row>
-    <router-view/>
+    <transition
+      name="fade-in"
+      mode="out-in"
+    >
+      <router-view/>
+    </transition>
   </div>
 </template>
 
@@ -89,5 +94,14 @@
   }
   .simulator__progressbutton {
     height: 100%;
+  }
+
+  .fade-in-enter-active, .fade-in-leave-active {
+    transition: all 0.8s;
+  }
+
+  .fade-in-enter, .fade-in-leave-to {
+    opacity: 0;
+    transform: translateY(-50px);
   }
 </style>

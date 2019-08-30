@@ -79,7 +79,7 @@
 
 <style scoped>
   .fifth__title {
-    font-size: 24px;
+    font-size: 50px;
     font-weight: bold;
   }
 </style>

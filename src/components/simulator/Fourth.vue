@@ -2,7 +2,10 @@
   <div
     class="fourth"
   >
-    <b-row>
+    <transition-group
+      name="list"
+      tag="b-row"
+    >
       <b-col
         v-for="text in title"
         :key="text"
@@ -11,7 +14,9 @@
       >
         {{ text }}
       </b-col>
+    </transition-group>
 
+    <b-row>
       <b-col
         class="my-4"
         cols="6"
@@ -74,5 +79,13 @@
   .fourth__title {
     font-size: 40px;
     font-weight: bold;
+  }
+
+  .list-enter-active, .list-leave-active {
+    transition: all 1s;
+  }
+  .list-enter, .list-leave-to {
+    opacity: 0;
+    transform: translateY(30px);
   }
 </style>
