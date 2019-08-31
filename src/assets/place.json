@@ -1,121 +1,159 @@
 {
   "place": [
     {
-      "name": "무언가zzzz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "담헌실학관",
+      "place": "담헌실학관",
+      "explananation": "교양수업 들으러 많이 감"
     },
     {
-      "name": "무언가zzzaz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "대학본부",
+      "place": "대학본부",
+      "explananation": "총장님이 계신다."
     },
     {
-      "name": "무언가zzbzz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "학생회관",
+      "place": "학생회관",
+      "explananation": "복지관 공사에 들어가면서 뭔가 많다."
     },
     {
-      "name": "무언가zzzcz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "복지관",
+      "place": "복지관",
+      "explananation": "대즐이 확장되어서 편의점이 쫓겨남"
     },
     {
-      "name": "무언가zdzzz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "공학 1관",
+      "place": "공학1관",
+      "explananation": "겁나 크다."
     },
     {
-      "name": "무언가zszzz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
-    },{
-      "name": "무언가zezzz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "공학 2관",
+      "place": "공학2관",
+      "explananation": "컴공과 건축"
     },
     {
-      "name": "무언가zazzz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "공학 3관",
+      "place": "공학3관",
+      "explananation": "생산시스템과가 뭐 만들고 있었음"
     },
     {
-      "name": "무언가zzfzz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "온라인평생교육원",
+      "place": "공학4관A동",
+      "explananation": "뭐하는 곳인진 모르지만 인문경영관 공사하면서 산경 교수가 들어왔다."
     },
     {
-      "name": "무언가zzzsz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "공학 4관B",
+      "place": "공학4관B동",
+      "explananation": "역시나 산경이 쓰고 있다."
     },
     {
-      "name": "무언가zzzdz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "소울관",
+      "place": "소울관",
+      "explananation": "뚫려있어 들어가 보았지만 입구컷"
     },
     {
-      "name": "무언가zzqzz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
-    },{
-      "name": "무언가zwzzz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "능력개발교육원",
+      "place": "새롬관",
+      "explananation": "진짜 뭐하는 데인지 모름"
     },
     {
-      "name": "무언가zzzez",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
-    },{
-      "name": "무언가zzrzz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "은솔관",
+      "place": "은솔관",
+      "explananation": "별관동의 최고봉"
     },
     {
-      "name": "무언가zzztz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "IH관",
+      "place": "IH관",
+      "explananation": "영어만 쓰는 동네. 사실 안 써도 된다더라."
     },
     {
-      "name": "무언가zzzjz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "청솔관",
+      "place": "청솔관",
+      "explananation": "별관동인데 본관동에 몇 개 밀림"
     },
     {
-      "name": "무언가zzzkz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "참빛관",
+      "place": "참빛관",
+      "explananation": "ATM 편의점 큐브 삼위일체"
     },
     {
-      "name": "무언가zzzhz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "한울관",
+      "place": "한울관 ",
+      "explananation": "다음에 알아보자"
     },
     {
-      "name": "무언가zzlzz",
-      "place": "공학 2관",
-      "floor": "2층",
-      "placeDetail": "127호"
+      "name": "예지관",
+      "place": "예지관",
+      "explananation": "지옥"
+    },
+    {
+      "name": "해울관",
+      "place": "해울관",
+      "explananation": "생지옥"
+    },
+    {
+      "name": "예솔관",
+      "place": "예솔관",
+      "explananation": "들어가보고 싶다"
+    },
+    {
+      "name": "다솔관",
+      "place": "다솔관",
+      "explananation": "본관동 최고봉이라 하더라"
+    },
+    {
+      "name": "함지관",
+      "place": "함지관",
+      "explananation": "킹갓편의점이 있다"
+    },
+    {
+      "name": "다산정보관",
+      "place": "다산정보관",
+      "explananation": "공부의 노예와 자유분방한 영혼들이 공존하는 혼돈의 공간"
+    },
+    {
+      "name": "강당",
+      "place": "강당",
+      "explananation": "크다 근데 담헌홀이 더 큰 듯"
+    },
+    {
+      "name": "GEC",
+      "place": "국제관",
+      "explananation": "영어가 존재하여 몸이 거부함"
+    },
+    {
+      "name": "나래돔",
+      "place": "나래돔",
+      "explananation": "많이 봤는데 뭐 하는 곳인지는 모름"
+    },
+    {
+      "name": "K-Factory",
+      "place": "스마트팩토리",
+      "explananation": "뭔가 만드는 곳인 거 같다. 최근에 지어짐"
+    },
+    {
+      "name": "산학협력단",
+      "place": "산학협력단",
+      "explananation": "산학협력단이 있는 곳"
+    },
+    {
+      "name": "캠퍼스컴퍼니",
+      "place": "캠퍼스컴퍼니",
+      "explananation": "회사가 많았다"
+    },
+    {
+      "name": "창업보육관",
+      "place": "창업보육관",
+      "explananation": "여기도 회사가 많았다. 교육도 함"
+    },
+    {
+      "name": "나우리인성관",
+      "place": "나우리인성관",
+      "explananation": "귀하의 카드는 출입이 거부당했습니다"
+    },
+    {
+      "name": "체육관",
+      "place": "체육관",
+      "explananation": "헬스장있는데 외부인이 더 많이 쓴다 하드라"
     }
   ]
 }

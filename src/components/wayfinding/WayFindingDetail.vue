@@ -10,17 +10,15 @@
         <div
           class="waydetail__title mb-2"
         >
-          {{ placeInfo.name }}
+          {{ placeInfo().name }}
         </div>
         <div
           class="waydetail__explanation mb-3"
         >
-          {{ placeInfo.place }}
-          {{ placeInfo.floor }}
-          {{ placeInfo.placeDetail }}
+          {{ placeInfo().place }}
         </div>
         <div>
-          {{ placeInfo.explanation }}
+          {{ placeInfo().explanation }}
         </div>
       </b-col>
       <b-col
@@ -28,6 +26,7 @@
         xl="12"
       >
         <div
+          :key="placeInfo().name"
           class="waydetail__map"
         ></div>
       </b-col>
@@ -37,6 +36,7 @@
 
 <script>
   import place from '@/assets/place.json'
+  import searchLocation from "../../service/mapapi";
 
   export default {
     name: "WayFindingDetail",
@@ -45,25 +45,37 @@
         type: Number
       }
     },
-    computed: {
+    methods: {
       placeInfo() {
-        let index = (this.index === null ? this.$route.params.index : this.index)
+        let index = (this.index === undefined ? this.$route.params.index : this.index)
         return place.place[index]
+      },
+      location() {
+        searchLocation('한국기술교육대학교 ' + this.placeInfo().place)
+          .then(
+            value => {
+              console.log(value)
+              // eslint-disable-next-line no-undef
+              kakao.maps.load(function () {
+                let element = document.getElementsByClassName('waydetail__map')[0]
+                let option = {
+                  // eslint-disable-next-line no-undef
+                  center: new kakao.maps.LatLng(value.y, value.x),
+                  level: 3
+                }
+
+                // eslint-disable-next-line no-undef
+                new kakao.maps.Map(element, option)
+              })
+            }
+          )
       }
     },
     mounted() {
-      // eslint-disable-next-line no-undef
-      kakao.maps.load(function () {
-        let element = document.getElementsByClassName('waydetail__map')[0]
-        let option = {
-          // eslint-disable-next-line no-undef
-          center: new kakao.maps.LatLng(33.450701, 126.570667),
-          level: 3
-        }
-
-        // eslint-disable-next-line no-undef
-        new kakao.maps.Map(element, option)
-      })
+      this.location()
+    },
+    updated() {
+      this.location()
     }
   }
 </script>

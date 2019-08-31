@@ -24,7 +24,6 @@
           selected-variant="primary"
           @row-selected="showDetail"
           :filter="searchString"
-          :filter-ignored-field="ignoredField"
           :items="placeArray"
           :fields="fields"
           responsive
@@ -52,11 +51,8 @@
         searchString: '',
         fields: [
           {key: 'name', label:'Room Name', class:'text-center'},
-          {key: 'place', label:'Building Name', class:'text-center'},
-          {key: 'floor', label:'Floor', class:'text-center'},
-          {key: 'placeDetail', label:'Room Number', class:'text-center'}
+          {key: 'place', label:'Building Name', class:'text-center'}
         ],
-        ignoredField: ['x', 'y'],
         windowWidth: window.innerWidth
       }
     },

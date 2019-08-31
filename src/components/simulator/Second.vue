@@ -139,7 +139,7 @@
                    한기대\
                   </div>'
                 // eslint-disable-next-line no-undef
-                let iwPosition = new kakao.maps.LatLng(value.x, value.y);
+                let iwPosition = new kakao.maps.LatLng(value.y, value.x);
 
                 // eslint-disable-next-line no-undef
                 let infowindow = new kakao.maps.InfoWindow({
