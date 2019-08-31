@@ -19,7 +19,7 @@
         offset-lg="3"
       >
         <data-table
-          :next-link="link"
+          @next="next"
         />
       </b-col>
     </b-row>
@@ -30,9 +30,9 @@
   import DataTable from "../scheduler/DataTable";
   export default {
     name: "SeventhDataTable",
-    data() {
-      return {
-        link: '/simulator/7/daily'
+    methods: {
+      next() {
+        this.$router.push('/simulator/7/daily')
       }
     },
     components: {

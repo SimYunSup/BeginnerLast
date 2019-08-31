@@ -19,7 +19,7 @@
         offset-lg="3"
       >
         <sleep-time
-          :next-link="link"
+          @next="next"
         />
       </b-col>
     </b-row>
@@ -31,9 +31,9 @@
 
   export default {
     name: "seventhSleepTime",
-    data() {
-      return {
-        link: '/simulator/7/data'
+    methods: {
+      next() {
+        this.$router.push('/simulator/7/data')
       }
     },
     components: {
