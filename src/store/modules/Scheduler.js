@@ -5,34 +5,7 @@ const state = {
     startTime: 2,
     endTime: 14
   },
-  timeTableData: [
-    {
-      name: '선형대수학',
-      time: [
-        {type: 'fixed', startTime: 0, endTime: 2, day: 2},
-        {type: 'fixed', startTime: 24, endTime: 30, day: 2},
-        {type: 'flex', time: 4, day: 4}
-      ],
-      exam: true
-    },
-    {
-      name: 'asdf',
-      time: [
-        {type: 'fixed', startTime: 18, endTime: 26, day: 4},
-        {type: 'flex', time: 4, day: 4},
-        {type: 'flex', time: 2, day: 5}
-      ],
-      exam: false
-    },
-    {
-      name: '마우스',
-      time: [
-        {type: 'fixed', startTime: 22, endTime: 25, day: 3}
-      ],
-      exam: true
-    }
-  ],
-  needUpdate: false
+  timeTableData: []
 }
 
 const getters = {
