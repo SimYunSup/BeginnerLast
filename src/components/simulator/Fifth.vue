@@ -31,7 +31,7 @@
         v-if="this.inputData === '학생회관'"
       >
         <way-finding-detail
-          :index="3"
+          :index="2"
         />
       </b-col>
 

@@ -140,7 +140,6 @@
 
 <style scoped>
   .developer {
-    height: 90vh;
     padding-top: 70px;
   }
   .developer__explanation {
